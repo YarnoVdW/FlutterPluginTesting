@@ -30,4 +30,5 @@ abstract class FlightPlatform extends PlatformInterface {
   Future<void> turnFlashOn() {
     throw UnimplementedError('turnFlashOn() has not been implemented.');
   }
+
 }

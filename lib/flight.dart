@@ -9,4 +9,5 @@ class Flight {
   Future<void> turnFlashOn() async {
     FlightPlatform.instance.turnFlashOn();
   }
+
 }

@@ -19,4 +19,5 @@ class MethodChannelFlight extends FlightPlatform {
   Future<void> turnFlashOn() async {
     await methodChannel.invokeMethod<String>('turnFlashOn');
   }
+
 }

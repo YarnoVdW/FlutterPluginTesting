@@ -13,6 +13,8 @@ class MockFlightPlatform
 
   @override
   Future<void> turnFlashOn() => Future.value();
+
+
 }
 
 void main() {

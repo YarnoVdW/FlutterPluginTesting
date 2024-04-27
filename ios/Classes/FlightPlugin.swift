@@ -15,26 +15,33 @@ public class FlightPlugin: NSObject, FlutterPlugin {
     case "getPlatformVersion":
       result("iOS " + UIDevice.current.systemVersion)
     case "turnFlashOn":
-        result(toggleFlash(on: false))
+        result(toggleFlash())
     default:
       result(FlutterMethodNotImplemented)
     }
   }
     
-    func toggleFlash(on: Bool ) {
-            guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
-            
+    func toggleFlash() {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+            guard device.hasTorch else { return }
+
             do {
                 try device.lockForConfiguration()
-                
-                device.torchMode = on ? .on : .off
-                if on {
-                    try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
+
+                if (device.torchMode == AVCaptureDevice.TorchMode.on) {
+                    device.torchMode = AVCaptureDevice.TorchMode.off
+                } else {
+                    do {
+                        try device.setTorchModeOn(level: 0.5)
+                    } catch {
+                        print(error)
+                    }
                 }
-                
+
                 device.unlockForConfiguration()
             } catch {
-                print("Error: \(error)")
+                print(error)
             }
         }
+    
 }
